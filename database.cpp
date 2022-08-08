@@ -23,27 +23,25 @@ Each element should have 5 data descriptors
 #include <string>
 #include <fstream>
 
-class Database
-{
-    public:
-        Database() {};
-        void Add_a_contact();
-        void list_all_contacts();
-        void search_contact();
-        void delete_contact();
-        void edit_contact(int);
-        ~Database() {};
-    private:
-        std::string _Name;
-        std::string _Surname;
-        std::string _Date_of_birth;
-        std::string _Passport_or_Id;
-        std::string _Phone_number;
-        std::string _Email;
+class Database {
+public:
+    Database() {};
+    void Add_a_contact();
+    void list_all_contacts();
+    void search_contact();
+    void delete_contact();
+    void edit_contact(int);
+    ~Database() {};
+private:
+    std::string _Name;
+    std::string _Surname;
+    std::string _Date_of_birth;
+    std::string _Passport_or_Id;
+    std::string _Phone_number;
+    std::string _Email;
 };
 
-void Database::Add_a_contact()
-{
+void Database::Add_a_contact() {
     std::cout << " Name: ";
     std::cin >> _Name;
     std::cout << " Surname: ";
@@ -57,19 +55,15 @@ void Database::Add_a_contact()
     std::string line;
     std::string pass;
     std::ifstream myfile ("Database.txt");
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,line) )
-        {
+    if (myfile.is_open()) {
+        while (getline (myfile,line)) {
             int i = 0;
             pass = "";
-            while( line[i] != ' ' )
-            {
+            while (line[i] != ' ') {
                 pass += line[i];
                 ++i;
             }
-            if( pass == _Passport_or_Id)
-            {
+            if (pass == _Passport_or_Id) {
                 return;
             }
         }
@@ -82,8 +76,7 @@ void Database::Add_a_contact()
     std::cin >> _Email;
 
     std::ofstream add ("Database.txt", std::ios::app);
-    if (add.is_open())
-    {
+    if (add.is_open()) {
         add << _Passport_or_Id << " ";
         add << _Name << " ";
         add << _Surname << " ";
@@ -99,14 +92,11 @@ void Database::Add_a_contact()
 }
 
 
-void Database::list_all_contacts()
-{
+void Database::list_all_contacts() {
     std::string line;
-    std::ifstream myfile ("Database.txt");
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,line) )
-        {
+    std::ifstream myfile("Database.txt");
+    if (myfile.is_open()) {
+        while (getline (myfile,line)) {
             std::cout << line << '\n';
         }
         myfile.close();
@@ -117,27 +107,22 @@ void Database::list_all_contacts()
     return;
 }
 
-void Database::search_contact()
-{
+void Database::search_contact() {
     std::string passid;
     std::cout << " enter Passport or Id: ";
     std::cin >> passid;
     std::string line;
     std::string pass;
     std::ifstream myfile ("Database.txt");
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,line) )
-        {
+    if (myfile.is_open()) {
+        while (getline (myfile,line)) {
             int i = 0;
             pass = "";
-            while( line[i] != ' ' )
-            {
+            while (line[i] != ' ') {
                 pass += line[i];
                 ++i;
             }
-            if( passid == pass )
-            {
+            if (passid == pass) {
                 std::cout << line << '\n';
             }
         }
@@ -148,8 +133,7 @@ void Database::search_contact()
 
 }
 
-void Database::delete_contact()
-{
+void Database::delete_contact() {
     std::string passid;
     std::cout << " enter Passport or Id: ";
     std::cin >> passid;
@@ -158,19 +142,15 @@ void Database::delete_contact()
     std::ifstream myfile ("Database.txt");
     std::ofstream temp;
     temp.open("temp.txt");
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,line) )
-        {
+    if (myfile.is_open()) {
+        while (getline (myfile,line)) {
             int i = 0;
             pass = "";
-            while( line[i] != ' ' )
-            {
+            while (line[i] != ' ') {
                 pass += line[i];
                 ++i;
             }
-            if( passid != pass )
-            {
+            if (passid != pass) {
                 temp << line << std::endl;
             }
         }
@@ -183,8 +163,7 @@ void Database::delete_contact()
         std::cout << "Unable to open file";
 }
 
-void Database::edit_contact( int n )
-{
+void Database::edit_contact(int n) {
     std::string str;
     std::cin >> str;
     std::string passid;
@@ -194,47 +173,38 @@ void Database::edit_contact( int n )
     std::cin >> passid;
 
     std::ifstream myfile ("Database.txt");
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,line) )
-        {
+    if (myfile.is_open()) {
+        while (getline(myfile,line)) {
             int i = 0;
             pass = "";
-            while( line[i] != ' ' )
-            {
+            while (line[i] != ' ') {
                 pass += line[i];
                 ++i;
             }
-            if( passid == pass )
-            {
+            if (passid == pass) {
                 _Passport_or_Id = passid;
-                while( line[i] == ' '){++i;}
-                while( line[i] != ' ' )
-                {
+                while (line[i] == ' ') { ++i; }
+                while (line[i] != ' ') {
                     _Name += line[i];
                     ++i;
                 }
-                while( line[i] == ' '){++i;}
-                while( line[i] != ' ' )
-                {
+                while (line[i] == ' ') { ++i; }
+                while (line[i] != ' ') {
                     _Surname += line[i];
                     ++i;
                 }
-                while( line[i] == ' '){++i;}
-                while( line[i] != ' ' )
-                {
+                while (line[i] == ' ') { ++i; }
+                while (line[i] != ' ') {
                     _Date_of_birth += line[i];
                     ++i;
                 }
-                while( line[i] == ' '){++i;}
-                while( line[i] != ' ')
-                {
+                while (line[i] == ' ') { ++i; }
+                while (line[i] != ' ') {
                     _Phone_number += line[i];
                     ++i;
                 }
-                while( line[i] == ' '){++i;}
-                while( line[i] != ' ' )
-                {
+                while (line[i] == ' ') { ++i; }
+                while (line[i] != ' ') {
                     _Email += line[i];
                     ++i;
                 }
@@ -249,19 +219,15 @@ void Database::edit_contact( int n )
     std::ifstream file ("Database.txt");
     std::ofstream temp;
     temp.open("temp.txt");
-    if (file.is_open())
-    {
-        while ( getline (file,lin) )
-        {
+    if (file.is_open()) {
+        while (getline (file,lin)) {
             int i = 0;
             pass = "";
-            while( lin[i] != ' ' )
-            {
+            while (lin[i] != ' ') {
                 pass += lin[i];
                 ++i;
             }
-            if( passid != pass )
-            {
+            if (passid != pass) {
                 temp << lin << std::endl;
             }
         }
@@ -272,7 +238,6 @@ void Database::edit_contact( int n )
     }
     else
         std::cout << "Unable to open file";
-
 
     switch(n)
     {
@@ -286,15 +251,17 @@ void Database::edit_contact( int n )
             _Date_of_birth = str;
             break;
         case 4:
-            _Phone_number = str;
+            _Passport_or_Id = str;
             break;
         case 5:
+            _Phone_number = str;
+            break;
+        case 6:
             _Email = str;
             break;
     }
     std::ofstream add ("Database.txt", std::ios::app);
-    if (add.is_open())
-    {
+    if (add.is_open()) {
         add << _Passport_or_Id << " ";
         add << _Name << " ";
         add << _Surname << " ";
@@ -317,10 +284,9 @@ void Search_for_Contact();
 void Edit_a_Contact();
 void Delete_a_Contact();
 
-int main()
-{
+int main() {
     int num;
-    do{
+    do {
         std::cout << " 1.Add a new Contact \n 2.List all Contacts \n 3.Search for Contact \n 4.Edit a Contact \n 5.Delete a Contact \n 6.Exit " << std::endl;
         std::cout << "number: ";
         std::cin >> num;
@@ -344,35 +310,30 @@ int main()
             case 0:
                 return 0;
         }
-    }while(num != 6 );
+    }while (num != 6 );
 }
 
-void Add_a_new_Contact()
-{
+void Add_a_new_Contact() {
     Database obj;
     obj.Add_a_contact();
 }
 
-void List_all_Contacts()
-{
+void List_all_Contacts() {
     Database obj1;
     obj1.list_all_contacts();
 }
 
-void Search_for_Contact()
-{
+void Search_for_Contact() {
     Database obj2;
     obj2.search_contact();
 }
 
-void Delete_a_Contact()
-{
+void Delete_a_Contact() {
     Database obj3;
     obj3.delete_contact();
 }
 
-void Edit_a_Contact()
-{
+void Edit_a_Contact() {
     Database obj4;
 
     int num;
@@ -404,4 +365,3 @@ void Edit_a_Contact()
             return;
     }
 }
-
