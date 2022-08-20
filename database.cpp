@@ -5,12 +5,13 @@
 class Database {
 public:
     Database() {};
+    ~Database() {};
+public:
     void Add_a_contact();
     void list_all_contacts();
     void search_contact();
     void delete_contact();
     void edit_contact(int);
-    ~Database() {};
 private:
     std::string _Name;
     std::string _Surname;
